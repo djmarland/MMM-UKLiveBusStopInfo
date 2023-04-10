@@ -17,7 +17,7 @@ Module.register("MMM-UKLiveBusStopInfo", {
     fadePoint: 0.25, // Start on 1/4th of the list.
     initialLoadDelay: 0, // start delay seconds.
 
-    apiBase: "https://api.tfl.gov.uk/StopPoint/{atcocode}/arrivals",
+    apiBase: "https://api.tfl.gov.uk/StopPoint/{atcocode}/arrivals?app_id={app_id}&app_key={app_key}",
 
     atcocode: "", // atcocode for bus stop
     app_key: "", // TransportAPI App Key
@@ -63,7 +63,7 @@ Module.register("MMM-UKLiveBusStopInfo", {
     this.updateTimer = null;
 
     this.url = encodeURI(
-      this.config.apiBase.replace("{atcocode}", this.config.atcocode)
+      this.config.apiBase.replace("{atcocode}", this.config.atcocode).replace("{app_id}", this.config.app_id).replace("{app_key}", this.config.app_key)
     );
 
     this.updateBusInfo(this);
@@ -144,7 +144,7 @@ Module.register("MMM-UKLiveBusStopInfo", {
 
         //Route name/Number
         var routeCell = document.createElement("td");
-        routeCell.className = "route";
+        routeCell.className = "route bright";
         routeCell.innerHTML = " " + bus.lineName + " ";
         row.appendChild(routeCell);
 
@@ -192,10 +192,10 @@ Module.register("MMM-UKLiveBusStopInfo", {
       var row2 = document.createElement("tr");
       bustable.appendChild(row2);
 
-      var timeCell = document.createElement("td");
-      timeCell.innerHTML = " " + this.buses.timestamp + " ";
-      timeCell.className = "bright";
-      row2.appendChild(timeCell);
+      //var timeCell = document.createElement("td");
+      //timeCell.innerHTML = " " + this.buses.timestamp + " ";
+      //timeCell.className = "bright";
+      //row2.appendChild(timeCell);
     }
 
     wrapper.appendChild(bustable);
